@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-# Add workflow directory to ruby path
-($LOAD_PATH << File.expand_path("..", __FILE__)).uniq!
-
 require "rubygems"
 require "bundle/bundler/setup"
 

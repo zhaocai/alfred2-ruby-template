@@ -20,7 +20,7 @@ task :config do
 end
 
 task :chdir => [:config] do
-  Dir.chdir($config['path'])
+  chdir $config['path']
 end
 
 desc "Install Gems"
@@ -41,13 +41,18 @@ task :bundle_update => [:chdir] do
   end
 end
 
-desc "Install"
+desc "Install to Alfred"
 task :install => [:config] do
   ln_sf File.realpath($config["path"]), File.join(workflow_home, $config["bundleid"])
 end
 
-desc "Uninstall"
+desc "Unlink from Alfred"
 task :uninstall => [:config] do
   rm File.join(workflow_home, $config["bundleid"])
 end
 
+desc "Remove any generated file"
+task :clobber => [:config] do
+  rmtree File.join($config["path"], ".bundle")
+  rmtree File.join($config["path"], "bundle")
+end
