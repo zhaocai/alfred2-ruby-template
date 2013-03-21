@@ -1,0 +1,6 @@
+---
+path: workflow
+# bundle id = domain.id
+domain: me.zhaowu
+id: alfred2-ruby-template
+
