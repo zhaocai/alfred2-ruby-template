@@ -18,12 +18,45 @@ module Alfred
   class NoMethodError       < AlfredError; status_code(13) ; end
   class PathError           < AlfredError; status_code(14) ; end
 
+  class << self
+
+    def with_friendly_error(alfred = Alfred::Core.new, &blk)
+      begin
+        yield alfred
+      rescue AlfredError => e
+        alfred.ui.error e.message
+        alfred.ui.debug e.backtrace.join("\n")
+        exit e.status_code
+      rescue Interrupt => e
+        alfred.ui.error "\nQuitting..."
+        alfred.ui.debug e.backtrace.join("\n")
+        exit 1
+      rescue SystemExit => e
+        exit e.status
+      rescue Exception => e
+        alfred.ui.error(
+          "Unfortunately, a fatal error has occurred. Please seek help in the Alfred Forum or raise an issue in \n" \
+          "github. Thanks!\n  #{e.inspect} #{e.backtrace.join("\n")}\n")
+        raise e
+      end
+    end
+  end
+
 
   class Core
     attr_reader :query
 
-    def initialize(query)
-      @query = query
+    def initialize
+    end
+
+    def ui
+      raise NoBundleIDError unless bundle_id
+      @ui ||= Logger.new(bundle_id)
+    end
+
+    def feedback
+      raise NoBundleIDError unless bundle_id
+      @feedback ||= Feedback.new
     end
 
     def info_plist_path
@@ -68,19 +101,21 @@ module Alfred
 
 
   class Logger
-    def initialize(core)
-      @core = core
-      raise NoBundleIDError unless core.bundle_id
+    def initialize(id)
+      @id = id
     end
 
     def info(msg)
       logger.info msg
     end
+    def warn(msg)
+      logger.warn msg
+    end
     def debug(msg)
       logger.debug msg
     end
-    def warn(msg)
-      logger.warn msg
+    def error(msg)
+      logger.error msg
     end
     def fatal(msg)
       logger.fatal msg
@@ -93,7 +128,7 @@ module Alfred
     private
 
     def init_log
-      @logger = Logging.logger[@core.bundle_id]
+      @logger = Logging.logger[@id]
       logger_file = File.expand_path("~/Library/Logs/Alfred-Workflow.log")
       @logger.level = :debug
       @logger.add_appenders(

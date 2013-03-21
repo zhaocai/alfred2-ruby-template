@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
 	<string>me.zhaowu.alfred2-ruby-template</string>
 	<key>connections</key>
 	<dict>
-		<key>0B72B508-D1B2-4579-BFF4-17BDE20F7646</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>14DEBC1D-4426-4BF4-83D5-ECA8F531F686</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-			</dict>
-		</array>
-		<key>14DEBC1D-4426-4BF4-83D5-ECA8F531F686</key>
+		<key>21557827-8003-42B7-A042-16D4C9278FEC</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -42,75 +31,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>keyword</key>
-				<string>test</string>
-				<key>text</key>
-				<string>Ruby Based Workflow Template</string>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>0B72B508-D1B2-4579-BFF4-17BDE20F7646</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>escaping</key>
-				<integer>4</integer>
-				<key>script</key>
-				<string># Put this init script directly into the Alfred script window and
-												# it will load main.rb with console logging enabled for Ruby exceptions
-												
-												ENV['GEM_PATH'] = File.join(Dir.pwd, 'ruby-1.8')
-												
-												# Provide a facility to log messages to Console.app:
-												def console_log(msg)
-												  escape = proc{ |m| m.gsub(&quot;'&quot;, &quot;'\\\\''&quot;) }
-												  `logger -t 'Alfred Workflow' '#{escape[msg]}'`
-												end
-												# Yay! A way to debug Alfred scripts. You can use either method:
-												#   raise &quot;I need to explain how this happened…&quot;
-												#                   OR
-												#   Alfred.log &quot;parachutes away!&quot;
-												#
-												# To see the messages, open up Console.app
-												
-												
-												def load_ruby_file(filename)
-												  ruby_code = IO.read(filename)
-												  eval(ruby_code, binding, File.expand_path(filename))
-												end
-												
-												
-												begin
-												  # Load the Alfred singleton object
-												  load_ruby_file(&quot;alfred.rb&quot;)
-												  Alfred = AlfredInit.new(&quot;{query}&quot;)
-												
-												  # Load your code from main.rb:
-												  load_ruby_file(&quot;main.rb&quot;)
-												rescue Exception =&gt; e
-												  slice = -1
-												  # Ignore final 2 lines of backtrace that always come from this file
-												  slice = -3 if e.backtrace.size &gt; 2
-												  bt = e.backtrace[0..slice].join(&quot;\n  &quot;)
-												  console_log &quot;#{e.message} (#{e.class}) [query: {query}]\n  &quot; + bt
-												end</string>
-				<key>type</key>
-				<integer>2</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>14DEBC1D-4426-4BF4-83D5-ECA8F531F686</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
@@ -131,25 +51,47 @@
 			<key>uid</key>
 			<string>42D05639-3F0F-4760-8214-317167E4173D</string>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>keyword</key>
+				<string>test</string>
+				<key>runningsubtext</key>
+				<string>waiting...</string>
+				<key>script</key>
+				<string>/usr/bin/ruby ./main.rb "{query}"</string>
+				<key>subtext</key>
+				<string>Test Feedback</string>
+				<key>title</key>
+				<string>Ruby Based Workflow Template</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>21557827-8003-42B7-A042-16D4C9278FEC</string>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
 	<key>uidata</key>
 	<dict>
-		<key>0B72B508-D1B2-4579-BFF4-17BDE20F7646</key>
+		<key>21557827-8003-42B7-A042-16D4C9278FEC</key>
 		<dict>
 			<key>ypos</key>
-			<real>130.0</real>
-		</dict>
-		<key>14DEBC1D-4426-4BF4-83D5-ECA8F531F686</key>
-		<dict>
-			<key>ypos</key>
-			<real>130.0</real>
+			<real>250</real>
 		</dict>
 		<key>42D05639-3F0F-4760-8214-317167E4173D</key>
 		<dict>
 			<key>ypos</key>
-			<real>140.0</real>
+			<real>140</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>
