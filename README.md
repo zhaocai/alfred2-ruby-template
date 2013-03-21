@@ -7,7 +7,7 @@ A template for Ruby-based Alfred 2 workflow development.
 * Use standard [bundler][gembundler] to easily package, manage, and update ruby gems in the workflow.
 * Friendly exception and debug output to the Mac OS X Console
 
-Alfred workflow and feedback related function are located in a separate [alfred-workflow gem]( https://github.com/zhaocai/alfred-workflow ) which can be easily installed by adding `gem "alfred-workflow", "~>1.0.4"` in the Gemfile.
+Alfred workflow and feedback related functions are located in a separate [alfred-workflow gem]( https://github.com/zhaocai/alfred-workflow ) which can be easily installed by adding `gem "alfred-workflow", "~>1.0.4"` in the Gemfile.
 
 * Functions for finding the bundle ID, cache and storage paths, and query arguments.
 * Functions for reading and writing plist files.
@@ -30,6 +30,10 @@ Alfred.with_friendly_error do |alfred|
   puts fb.to_xml
 end
 ```
+
+Code are wrapped in `Alfred.with_friendly_error` block. Exceptions and debug messages are logged to Console log file **~/Library/Logs/Alfred-Workflow.log**.
+
+
 
 
 
@@ -72,6 +76,11 @@ Run `rake bundle_install` to pull the gems into **workflow/bundle/** folder.
 ### Step 5: Your Code
 
 Now you are good to add your own code based on the previous example.
+
+
+## Reference
+
+* [alfred2-ruby-framework]( https://github.com/canadaduane/alfred2-ruby-framework )
 
 ## LICENSE:
 
