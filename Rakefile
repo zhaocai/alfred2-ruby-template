@@ -1,3 +1,4 @@
+require 'rubygems' unless defined? Gem # rubygems is only needed in 1.8
 
 require 'yaml'
 require 'plist'
@@ -23,7 +24,7 @@ task :chdir => [:config] do
 end
 
 desc "Install Gems"
-task :bundle => [:chdir] do
+task :bundle_install => [:chdir] do
   sh %Q{bundle install --standalone} do |ok, res|
     if ! ok
       puts "fail to install gems (status = #{res.exitstatus})"
@@ -32,7 +33,7 @@ task :bundle => [:chdir] do
 end
 
 desc "Update Gems"
-task :bundle => [:chdir] do
+task :bundle_update => [:chdir] do
   sh %Q{bundle update} do |ok, res|
     if ! ok
       puts "fail to update gems (status = #{res.exitstatus})"

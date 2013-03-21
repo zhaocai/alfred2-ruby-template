@@ -7,7 +7,7 @@
 require "rubygems"
 require "bundle/bundler/setup"
 
-require "lib/alfred"
+require "alfred"
 
 Alfred.with_friendly_error do |alfred|
   fb = alfred.feedback
@@ -20,7 +20,6 @@ Alfred.with_friendly_error do |alfred|
 
   puts fb.to_xml
 end
-
 
 
 
