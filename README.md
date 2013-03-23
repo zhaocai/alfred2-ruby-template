@@ -2,6 +2,11 @@
 
 A template for Ruby-based Alfred 2 workflow development.
 
+## Example Projects
+
+* [alfred2_top_workflow]( https://github.com/zhaocai/alfred2-top-workflow )
+
+
 ## Main features:
 
 * Use standard [bundler][gembundler] to easily package, manage, and update ruby gems in the workflow.
@@ -32,6 +37,7 @@ end
 ```
 
 Code are wrapped in `Alfred.with_friendly_error` block. Exceptions and debug messages are logged to Console log file **~/Library/Logs/Alfred-Workflow.log**.
+
 
 
 
@@ -77,6 +83,10 @@ Run `rake bundle_install` to pull the gems into **workflow/bundle/** folder.
 
 Now you are good to add your own code based on the previous example.
 
+
+## Todo
+
+1. Start with rescue feedback if something goes wrong
 
 ## Reference
 
