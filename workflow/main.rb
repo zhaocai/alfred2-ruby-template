@@ -13,14 +13,15 @@ Alfred.with_friendly_error do |alfred|
 
   # add an arbitrary feedback
   fb.add_item({
-    :title    => "Just a Test!"         ,
+    :uid      => ""                     ,
+    :title    => "Just a Test"          ,
     :subtitle => "feedback item"        ,
     :arg      => "A test feedback Item" ,
     :valid    => "yes"                  ,
   })
 
 
-  puts fb.to_xml
+  puts fb.to_xml(ARGV)
 end
 
 

@@ -31,6 +31,33 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>62</integer>
+				<key>keyword</key>
+				<string>atest</string>
+				<key>runningsubtext</key>
+				<string>working...</string>
+				<key>script</key>
+				<string>/usr/bin/ruby ./main.rb {query}</string>
+				<key>subtext</key>
+				<string>Test Feedback</string>
+				<key>title</key>
+				<string>Ruby Based Workflow Template</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>21557827-8003-42B7-A042-16D4C9278FEC</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
@@ -50,33 +77,6 @@
 			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
 			<string>42D05639-3F0F-4760-8214-317167E4173D</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>63</integer>
-				<key>keyword</key>
-				<string>test</string>
-				<key>runningsubtext</key>
-				<string>waiting...</string>
-				<key>script</key>
-				<string>/usr/bin/ruby ./main.rb "{query}"</string>
-				<key>subtext</key>
-				<string>Test Feedback</string>
-				<key>title</key>
-				<string>Ruby Based Workflow Template</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>21557827-8003-42B7-A042-16D4C9278FEC</string>
 		</dict>
 	</array>
 	<key>readme</key>
