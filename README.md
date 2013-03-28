@@ -62,6 +62,8 @@ Alfred.with_friendly_error do |alfred|
 end
 ```
 
+![rescue feedback](https://raw.github.com/zhaocai/alfred2-ruby-template/master/screenshots/rescue%20feedback.png)
+
 
 
 ## Quick Start Guide
