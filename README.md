@@ -85,6 +85,7 @@ id: alfred2-ruby-template
 ```
 
 ### Step 3: Install
+`[sudo] gem install plist` if you have not installed the **plist** gem.
 
 Run `rake install` to install the workflow. Now you can see the workflow loaded in the
 Alfred workflow interface.
@@ -112,7 +113,7 @@ Now you are good to add your own code based on the previous example.
 
 1. System bundler version is too old.
 
-> `sudo gem install bundler`
+`sudo gem install bundler`
 
 
 
