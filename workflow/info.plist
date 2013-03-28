@@ -17,6 +17,17 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>BA17BE41-176A-4E9A-B958-A3F0BEA36829</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>42D05639-3F0F-4760-8214-317167E4173D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Zhao Cai</string>
@@ -36,15 +47,15 @@
 				<key>escaping</key>
 				<integer>62</integer>
 				<key>keyword</key>
-				<string>atest</string>
+				<string>test feedback</string>
 				<key>runningsubtext</key>
 				<string>working...</string>
 				<key>script</key>
 				<string>/usr/bin/ruby ./main.rb {query}</string>
 				<key>subtext</key>
-				<string>Test Feedback</string>
-				<key>title</key>
 				<string>Ruby Based Workflow Template</string>
+				<key>title</key>
+				<string>Test Alfred Feedback</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -78,6 +89,33 @@
 			<key>uid</key>
 			<string>42D05639-3F0F-4760-8214-317167E4173D</string>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>keyword</key>
+				<string>test rescue feedback</string>
+				<key>runningsubtext</key>
+				<string>...</string>
+				<key>script</key>
+				<string>/usr/bin/ruby ./main_with_rescue_feedback.rb {query}</string>
+				<key>subtext</key>
+				<string>Ruby Based Workflow Template</string>
+				<key>title</key>
+				<string>Test Alfred Rescue Feedback</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>BA17BE41-176A-4E9A-B958-A3F0BEA36829</string>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -92,6 +130,11 @@
 		<dict>
 			<key>ypos</key>
 			<real>140</real>
+		</dict>
+		<key>BA17BE41-176A-4E9A-B958-A3F0BEA36829</key>
+		<dict>
+			<key>ypos</key>
+			<real>370</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>

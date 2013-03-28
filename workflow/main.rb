@@ -5,6 +5,9 @@ require 'rubygems' unless defined? Gem # rubygems is only needed in 1.8
 require "bundle/bundler/setup"
 require "alfred"
 
+
+
+
 Alfred.with_friendly_error do |alfred|
   fb = alfred.feedback
 
@@ -19,7 +22,21 @@ Alfred.with_friendly_error do |alfred|
     :arg      => "A test feedback Item" ,
     :valid    => "yes"                  ,
   })
+  
+  # add an feedback to test rescue feedback
+  fb.add_item({
+    :uid          => ""                     ,
+    :title        => "Rescue Feedback Test" ,
+    :subtitle     => "rescue feedback item" ,
+    :arg          => ""                     ,
+    :autocomplete => "failed"               ,
+    :valid        => "no"                   ,
+  })
 
+  if ARGV[0].eql? "failed"
+    alfred.with_rescue_feedback = true
+    raise Alfred::NoBundleIDError, "Wrong Bundle ID Test!"
+  end
 
   puts fb.to_xml(ARGV)
 end

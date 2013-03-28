@@ -4,16 +4,18 @@ A template for Ruby-based Alfred 2 workflow development.
 
 ## Example Projects
 
-* [alfred2_top_workflow]( https://github.com/zhaocai/alfred2-top-workflow )
+* [alfred2-top-workflow]( https://github.com/zhaocai/alfred2-top-workflow )
 
 
 ## Main features:
 
 * Use standard [bundler][gembundler] to easily package, manage, and update ruby gems in the workflow.
 * Friendly exception and debug output to the Mac OS X Console
+* Automate rescue feedback items to alfred when something goes wrong.
 
-Alfred workflow and feedback related functions are located in a separate [alfred-workflow gem]( https://github.com/zhaocai/alfred-workflow ) which can be easily installed by adding `gem "alfred-workflow", "~>1.0.4"` in the Gemfile.
+> Alfred workflow and feedback related functions are located in a separate [alfred-workflow gem]( https://github.com/zhaocai/alfred-workflow ) which can be easily installed by adding `gem "alfred-workflow"` in the Gemfile.
 
+* Functions for smart case query filter of feedback results.
 * Functions for finding the bundle ID, cache and storage paths, and query arguments.
 * Functions for reading and writing plist files.
 * Functions to simplify generating feedback XML for Alfred.
@@ -23,7 +25,7 @@ Alfred workflow and feedback related functions are located in a separate [alfred
 ## Quick Example
 
 ```ruby
-require 'rubygems' unless defined? Gem # rubygems is only needed in 1.8
+require 'rubygems' unless defined? Gem
 require "bundle/bundler/setup"
 require "alfred"
 
@@ -32,18 +34,39 @@ Alfred.with_friendly_error do |alfred|
 
   fb.add_file_item(File.expand_path "~/Applications/")
 
-  puts fb.to_xml
+  puts fb.to_alfred(ARGV)
 end
 ```
 
-Code are wrapped in `Alfred.with_friendly_error` block. Exceptions and debug messages are logged to Console log file **~/Library/Logs/Alfred-Workflow.log**.
+Main code are wrapped in `Alfred.with_friendly_error` block. Exceptions and debug messages are logged to Console log file **~/Library/Logs/Alfred-Workflow.log**.
 
+One more example with rescue feedback automatically generated!
 
+```ruby
+require 'rubygems' unless defined? Gem
+require "bundle/bundler/setup"
+require "alfred"
 
+def my_code_with_something_goes_wrong
+  true
+end
+
+Alfred.with_friendly_error do |alfred|
+  alfred.with_rescue_feedback = true
+
+  fb = alfred.feedback
+
+  if my_code_with_something_goes_wrong
+    raise Alfred::NoBundleIDError, "Wrong Bundle ID Test!"
+  end
+end
+```
 
 
 
 ## Quick Start Guide
+
+You may directly download the [alfred2-ruby-template]( https://github.com/zhaocai/alfred2-ruby-template/raw/master/alfred2-ruby-template.alfredworkflow ) here, install, and play with the keywords: `test feedback` and `test rescue feedback`.
 
 ### Step 1: Clone
 
@@ -53,9 +76,10 @@ Clone or fork this repo to your local directory: https://github.com/zhaocai/alfr
 Update **domain** and **id** in the `config.yml` file.
 
 ```yaml
+# bundle_id = "domain.id"
+# path is the relative path to the workflow in the project root
 ---
 path: workflow
-# bundle_id = "domain.id"
 domain: your.domain
 id: alfred2-ruby-template
 ```
@@ -74,19 +98,23 @@ source "https://rubygems.org"
 
 gem "plist"
 gem "logging"
-gem "alfred-workflow", "~>1.0.4"
+gem "alfred-workflow"
 ```
 
-Run `rake bundle_install` to pull the gems into **workflow/bundle/** folder.
+Run `rake bundle:install` to pull the gems into **workflow/bundle/** folder.
 
 ### Step 5: Your Code
 
 Now you are good to add your own code based on the previous example.
 
 
-## Todo
+## Troubleshooting
 
-1. Start with rescue feedback if something goes wrong
+1. System bundler version is too old.
+
+> `sudo gem install bundler`
+
+
 
 ## Reference
 
