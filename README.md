@@ -5,6 +5,7 @@ A template for Ruby-based Alfred 2 workflow development.
 ## Example Projects
 
 * [alfred2-top-workflow]( https://github.com/zhaocai/alfred2-top-workflow )
+* [alfred2-google-workflow]( https://github.com/zhaocai/alfred2-google-workflow )
 
 
 ## Main features:
@@ -70,9 +71,11 @@ end
 
 You may directly download the [alfred2-ruby-template]( https://github.com/zhaocai/alfred2-ruby-template/raw/master/alfred2-ruby-template.alfredworkflow ) here, install, and play with the keywords: `test feedback` and `test rescue feedback`.
 
-### Step 1: Clone
+### Step 1: Clone or Fork
 
-Clone or fork this repo to your local directory: https://github.com/zhaocai/alfred2-ruby-template.git
+Clone or fork this repo to your local directory: 
+
+`git clone https://github.com/zhaocai/alfred2-ruby-template.git`
 
 ### Step 2: Config.yml
 Update **domain** and **id** in the `config.yml` file.
