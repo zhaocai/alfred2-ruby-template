@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Alfred2-ruby-template by zhaocai</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/zhaocai/alfred2-ruby-template">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Alfred2-ruby-template</h1>
+            <h2>Alfred 2 Workflow Ruby Template</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/zhaocai/alfred2-ruby-template/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/zhaocai/alfred2-ruby-template/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>Alfred 2 Workflow Ruby Template</h1>
+
+<p>A template for Ruby-based Alfred 2 workflow development.</p>
+
+<h2>Example Projects</h2>
+
+<ul>
+<li><a href="https://github.com/zhaocai/alfred2-top-workflow">alfred2-top-workflow</a></li>
+<li><a href="https://github.com/zhaocai/alfred2-google-workflow">alfred2-google-workflow</a></li>
+</ul><h2>Main features:</h2>
+
+<ul>
+<li>Use standard <a href="http://gembundler.com/">bundler</a> to easily package, manage, and update ruby gems in the workflow.</li>
+<li>Friendly exception and debug output to the Mac OS X Console</li>
+<li>Automate rescue feedback items to alfred when something goes wrong.</li>
+</ul><blockquote>
+<p>Alfred workflow and feedback related functions are located in a separate <a href="https://github.com/zhaocai/alfred-workflow">alfred-workflow gem</a> which can be easily installed by adding <code>gem "alfred-workflow"</code> in the Gemfile.</p>
+</blockquote>
+
+<ul>
+<li>Functions for smart case query filter of feedback results.</li>
+<li>Functions for finding the bundle ID, cache and storage paths, and query arguments.</li>
+<li>Functions for reading and writing plist files.</li>
+<li>Functions to simplify generating feedback XML for Alfred.</li>
+<li>Functions to simplify saving and retrieving settings.</li>
+</ul><h2>Quick Example</h2>
+
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">'rubygems'</span> <span class="k">unless</span> <span class="n">defined?</span> <span class="no">Gem</span>
+<span class="nb">require</span> <span class="s2">"bundle/bundler/setup"</span>
+<span class="nb">require</span> <span class="s2">"alfred"</span>
+
+<span class="no">Alfred</span><span class="o">.</span><span class="n">with_friendly_error</span> <span class="k">do</span> <span class="o">|</span><span class="n">alfred</span><span class="o">|</span>
+  <span class="n">fb</span> <span class="o">=</span> <span class="n">alfred</span><span class="o">.</span><span class="n">feedback</span>
+
+  <span class="n">fb</span><span class="o">.</span><span class="n">add_file_item</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">expand_path</span> <span class="s2">"~/Applications/"</span><span class="p">)</span>
+
+  <span class="nb">puts</span> <span class="n">fb</span><span class="o">.</span><span class="n">to_alfred</span><span class="p">(</span><span class="no">ARGV</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>Main code are wrapped in <code>Alfred.with_friendly_error</code> block. Exceptions and debug messages are logged to Console log file <strong>~/Library/Logs/Alfred-Workflow.log</strong>.</p>
+
+<p>One more example with rescue feedback automatically generated!</p>
+
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">'rubygems'</span> <span class="k">unless</span> <span class="n">defined?</span> <span class="no">Gem</span>
+<span class="nb">require</span> <span class="s2">"bundle/bundler/setup"</span>
+<span class="nb">require</span> <span class="s2">"alfred"</span>
+
+<span class="k">def</span> <span class="nf">my_code_with_something_goes_wrong</span>
+  <span class="kp">true</span>
+<span class="k">end</span>
+
+<span class="no">Alfred</span><span class="o">.</span><span class="n">with_friendly_error</span> <span class="k">do</span> <span class="o">|</span><span class="n">alfred</span><span class="o">|</span>
+  <span class="n">alfred</span><span class="o">.</span><span class="n">with_rescue_feedback</span> <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="n">fb</span> <span class="o">=</span> <span class="n">alfred</span><span class="o">.</span><span class="n">feedback</span>
+
+  <span class="k">if</span> <span class="n">my_code_with_something_goes_wrong</span>
+    <span class="k">raise</span> <span class="ss">Alfred</span><span class="p">:</span><span class="ss">:NoBundleIDError</span><span class="p">,</span> <span class="s2">"Wrong Bundle ID Test!"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+
+<p><img src="https://raw.github.com/zhaocai/alfred2-ruby-template/master/screenshots/rescue%20feedback.png" alt="rescue feedback"></p>
+
+<h2>Quick Start Guide</h2>
+
+<p>You may directly download the <a href="https://github.com/zhaocai/alfred2-ruby-template/raw/master/alfred2-ruby-template.alfredworkflow">alfred2-ruby-template</a> here, install, and play with the keywords: <code>test feedback</code> and <code>test rescue feedback</code>.</p>
+
+<h3>Step 1: Clone or Fork</h3>
+
+<p>Clone or fork this repo to your local directory: </p>
+
+<p><code>git clone https://github.com/zhaocai/alfred2-ruby-template.git</code></p>
+
+<h3>Step 2: Config.yml</h3>
+
+<p>Update <strong>domain</strong> and <strong>id</strong> in the <code>config.yml</code> file.</p>
+
+<div class="highlight"><pre><span class="c1"># bundle_id = "domain.id"</span>
+<span class="c1"># path is the relative path to the workflow in the project root</span>
+<span class="nn">---</span>
+<span class="l-Scalar-Plain">path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">workflow</span>
+<span class="l-Scalar-Plain">domain</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">your.domain</span>
+<span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">alfred2-ruby-template</span>
+</pre></div>
+
+<h3>Step 3: Install</h3>
+
+<p><code>[sudo] gem install plist</code> if you have not installed the <strong>plist</strong> gem.</p>
+
+<p>Run <code>rake install</code> to install the workflow. Now you can see the workflow loaded in the
+Alfred workflow interface.</p>
+
+<h3>Step 4: Add Ruby Gems</h3>
+
+<p>Edit <strong>workflow/Gemfile</strong>. Add some gems.</p>
+
+<div class="highlight"><pre><span class="n">source</span> <span class="s2">"https://rubygems.org"</span>
+
+<span class="n">gem</span> <span class="s2">"plist"</span>
+<span class="n">gem</span> <span class="s2">"logging"</span>
+<span class="n">gem</span> <span class="s2">"alfred-workflow"</span>
+</pre></div>
+
+<p>Run <code>rake bundle:install</code> to pull the gems into <strong>workflow/bundle/</strong> folder.</p>
+
+<h3>Step 5: Your Code</h3>
+
+<p>Now you are good to add your own code based on the previous example.</p>
+
+<h2>Troubleshooting</h2>
+
+<ol>
+<li>System bundler version is too old.</li>
+</ol><p><code>sudo gem install bundler</code></p>
+
+<h2>Reference</h2>
+
+<ul>
+<li><a href="https://github.com/canadaduane/alfred2-ruby-framework">alfred2-ruby-framework</a></li>
+</ul><h2>LICENSE:</h2>
+
+<p>Copyright (c) 2013 Zhao Cai <a href="mailto:caizhaoff@gmail.com">caizhaoff@gmail.com</a></p>
+
+<p>This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with
+this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/zhaocai">zhaocai</a> can be found on <a href="https://github.com/zhaocai/alfred2-ruby-template">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
