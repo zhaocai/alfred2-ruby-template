@@ -6,6 +6,7 @@ A template for Ruby-based Alfred 2 workflow development.
 
 * [alfred2-top-workflow]( https://github.com/zhaocai/alfred2-top-workflow )
 * [alfred2-google-workflow]( https://github.com/zhaocai/alfred2-google-workflow )
+* [alfred2-sourcetree-workflow]( https://github.com/zhaocai/alfred2-sourcetree-workflow )
 
 
 ## Main features:
@@ -13,14 +14,15 @@ A template for Ruby-based Alfred 2 workflow development.
 * Use standard [bundler][gembundler] to easily package, manage, and update ruby gems in the workflow.
 * Friendly exception and debug output to the Mac OS X Console
 * Automate rescue feedback items to alfred when something goes wrong.
+* Automate saving and loading cached feedback
 
 > Alfred workflow and feedback related functions are located in a separate [alfred-workflow gem]( https://github.com/zhaocai/alfred-workflow ) which can be easily installed by adding `gem "alfred-workflow"` in the Gemfile.
 
+* Functions to easily load and save user configuration (in YAML)
 * Functions for smart case query filter of feedback results.
 * Functions for finding the bundle ID, cache and storage paths, and query arguments.
 * Functions for reading and writing plist files.
 * Functions to simplify generating feedback XML for Alfred.
-* Functions to simplify saving and retrieving settings.
 
 
 ## Quick Example
@@ -69,7 +71,7 @@ end
 
 ## Quick Start Guide
 
-You may directly download the [alfred2-ruby-template]( https://github.com/zhaocai/alfred2-ruby-template/raw/master/alfred2-ruby-template.alfredworkflow ) here, install, and play with the keywords: `test feedback` and `test rescue feedback`.
+You may directly download the [alfred2-ruby-template workflow]( https://github.com/zhaocai/alfred2-ruby-template/raw/master/alfred2-ruby-template.alfredworkflow ) here, install, and play with the keywords: `test feedback` and `test rescue feedback`.
 
 ### Step 1: Clone or Fork
 
@@ -90,7 +92,7 @@ id: alfred2-ruby-template
 ```
 
 ### Step 3: Install
-`[sudo] gem install plist` if you have not installed the **plist** gem.
+> `[sudo] gem install plist` if you have not installed the **plist** gem.
 
 Run `rake install` to install the workflow. Now you can see the workflow loaded in the
 Alfred workflow interface.
@@ -105,6 +107,7 @@ source "https://rubygems.org"
 gem "plist"
 gem "logging"
 gem "alfred-workflow"
+# gem "your-gem-required"
 ```
 
 Run `rake bundle:install` to pull the gems into **workflow/bundle/** folder.
@@ -112,6 +115,34 @@ Run `rake bundle:install` to pull the gems into **workflow/bundle/** folder.
 ### Step 5: Your Code
 
 Now you are good to add your own code based on the previous example.
+
+
+## More Examples:
+
+### 1. Automate saving and loading cached feedback
+```ruby
+require 'rubygems' unless defined? Gem
+require "bundle/bundler/setup"
+require "alfred"
+
+Alfred.with_friendly_error do |alfred|
+  alfred.with_rescue_feedback = true
+  alfred.with_cached_feedback do
+    # expire in 1 hour
+    use_cache_file :expire => 3600
+    # use_cache_file :file => "/path/to/your/cache_file", :expire => 3600
+  end
+
+  if fb = alfred.feedback.get_cached_feedback
+    # cached feedback is valid
+    puts fb.to_alfred
+  else 
+    fb = alfred.feedback
+    # ... generate_feedback as usually
+    fb.put_cached_feedback
+  end
+end
+```
 
 
 ## Troubleshooting
@@ -144,3 +175,5 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 [gembundler]: http://gembundler.com/
+
+
