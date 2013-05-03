@@ -105,7 +105,6 @@ Edit **workflow/Gemfile**. Add some gems.
 source "https://rubygems.org"
 
 gem "plist"
-gem "logging"
 gem "alfred-workflow"
 # gem "your-gem-required"
 ```
@@ -130,10 +129,22 @@ Alfred.with_friendly_error do |alfred|
   alfred.with_cached_feedback do
     # expire in 1 hour
     use_cache_file :expire => 3600
-    # use_cache_file :file => "/path/to/your/cache_file", :expire => 3600
+    # or define your own cache file
+    # use_cache_file(
+    #   :file   => File.join(alfred.volatile_storage_path ,"this_workflow.alfred2feedback") ,
+    #   :expire => 3600
+    # )
+
   end
 
-  if fb = alfred.feedback.get_cached_feedback
+  # prepend ! in query to refresh
+  is_refresh = false
+  if ARGV[0] == '!'
+    is_refresh = true
+    ARGV.shift
+  end
+
+  if !is_refresh and fb = alfred.feedback.get_cached_feedback
     # cached feedback is valid
     puts fb.to_alfred
   else 
