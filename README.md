@@ -75,7 +75,7 @@ You may directly download the [alfred2-ruby-template workflow]( https://github.c
 
 ### Step 1: Clone or Fork
 
-Clone or fork this repo to your local directory: 
+Clone or fork this repo to your local directory:
 
 `git clone https://github.com/zhaocai/alfred2-ruby-template.git`
 
@@ -89,12 +89,15 @@ Update **domain** and **id** in the `config.yml` file.
 path: workflow
 domain: your.domain
 id: alfred2-ruby-template
+# If you are using Alfred's advanced Dropbox sync, indicate the path shown in
+# Alfred Preferences > Advanced > Syncing:
+dropbox: ~/Dropbox/Alfred
 ```
 
 ### Step 3: Install
 > `[sudo] gem install plist` if you have not installed the **plist** gem.
 
-Run `rake install` to install the workflow. Now you can see the workflow loaded in the
+Run `rake install` to install the workflow or `rake dbxinstall` if you are using Alfred's advanced Dropbox sync. Now you can see the workflow loaded in the
 Alfred workflow interface.
 
 ### Step 4: Add Ruby Gems
@@ -147,7 +150,7 @@ Alfred.with_friendly_error do |alfred|
   if !is_refresh and fb = alfred.feedback.get_cached_feedback
     # cached feedback is valid
     puts fb.to_alfred
-  else 
+  else
     fb = alfred.feedback
     # ... generate_feedback as usually
     fb.put_cached_feedback
