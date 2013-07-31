@@ -94,8 +94,10 @@ id: alfred2-ruby-template
 dropbox: ~/Dropbox/Alfred
 ```
 
-### Step 3: Install
-> `[sudo] gem install plist` if you have not installed the **plist** gem.
+### Step 3: Install (with System Ruby /usr/bin/ruby)
+If you use rvm or rbenv, switch to the system ruby.
+
+> `sudo gem install plist` if you have not installed the **plist** gem.
 
 Run `rake install` to install the workflow or `rake dbxinstall` if you are using Alfred's advanced Dropbox sync. Now you can see the workflow loaded in the
 Alfred workflow interface.
