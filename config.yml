@@ -6,4 +6,4 @@ domain: me.zhaowu
 id: alfred2-ruby-template
 # If you are using Alfred's advanced Dropbox sync, indicate the path shown in
 # Alfred Preferences > Advanced > Syncing:
-dropbox: ~/Dropbox/Alfred
+dropbox: ~/Dropbox
