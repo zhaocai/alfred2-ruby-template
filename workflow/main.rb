@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 require 'rubygems' unless defined? Gem # rubygems is only needed in 1.8
-require "bundle/bundler/setup"
+require_relative "bundle/bundler/setup"
 require "alfred"
 
 
@@ -40,6 +40,3 @@ Alfred.with_friendly_error do |alfred|
 
   puts fb.to_xml(ARGV)
 end
-
-
-
