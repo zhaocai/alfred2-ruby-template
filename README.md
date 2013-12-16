@@ -29,7 +29,7 @@ A template for Ruby-based Alfred 2 workflow development.
 
 ```ruby
 require 'rubygems' unless defined? Gem
-require "bundle/bundler/setup"
+require_relative "bundle/bundler/setup"
 require "alfred"
 
 Alfred.with_friendly_error do |alfred|
@@ -47,7 +47,7 @@ One more example with rescue feedback automatically generated!
 
 ```ruby
 require 'rubygems' unless defined? Gem
-require "bundle/bundler/setup"
+require_relative "bundle/bundler/setup"
 require "alfred"
 
 def my_code_with_something_goes_wrong
@@ -95,9 +95,11 @@ dropbox: ~/Dropbox/Alfred
 ```
 
 ### Step 3: Install (with System Ruby /usr/bin/ruby)
-If you use rvm or rbenv, switch to the system ruby.
+If you use rvm or rbenv, switch to the system ruby, or call system ruby directly as in ```/usr/bin/ruby```.
 
 > `sudo gem install plist` if you have not installed the **plist** gem.
+
+> `sudo gem install bundler` if you have not installed the **bundler** gem.
 
 Run `rake install` to install the workflow or `rake dbxinstall` if you are using Alfred's advanced Dropbox sync. Now you can see the workflow loaded in the
 Alfred workflow interface.
@@ -126,7 +128,7 @@ Now you are good to add your own code based on the previous example.
 ### 1. Automate saving and loading cached feedback
 ```ruby
 require 'rubygems' unless defined? Gem
-require "bundle/bundler/setup"
+require_relative "bundle/bundler/setup"
 require "alfred"
 
 Alfred.with_friendly_error do |alfred|

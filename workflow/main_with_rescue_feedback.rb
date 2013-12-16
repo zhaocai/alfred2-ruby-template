@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 require 'rubygems' unless defined? Gem
-require "bundle/bundler/setup"
+require_relative "bundle/bundler/setup"
 require "alfred"
 
 
@@ -19,6 +19,3 @@ Alfred.with_friendly_error do |alfred|
     raise Alfred::NoBundleIDError, "Wrong Bundle ID Test!"
   end
 end
-
-
-
