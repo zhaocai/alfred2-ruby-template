@@ -6,8 +6,8 @@ id: alfred2-ruby-template
 # base domain
 domain: me.zhaowu
 
-name: Alfred 2 Ruby Template
-description: Template Ruby project for creating Alfred 2 workflows
+name: Ruby Based Workflow Template
+description: A starting place for developing Ruby based workflow in Alfred
 created_by: Zhao Cai
 website: https://github.com/zhaocai/alfred2-ruby-template
 readme: readme
