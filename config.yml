@@ -1,9 +1,22 @@
-# bundle_id = "domain.id"
-# path is the relative path to the workflow in the project root
----
-path: workflow
-domain: me.zhaowu
+## workflow build config
+
+# id and name for the workflow (bundle id = domain.id)
 id: alfred2-ruby-template
+
+# base domain
+domain: me.zhaowu
+
+name: Alfred 2 Ruby Template
+description: Template Ruby project for creating Alfred 2 workflows
+created_by: Zhao Cai
+website: https://github.com/zhaocai/alfred2-ruby-template
+readme: readme
+
+## development config
+
+# path is the relative path to the workflow in the project root
+path: workflow
+
 # If you are using Alfred's advanced Dropbox sync, indicate the path shown in
 # Alfred Preferences > Advanced > Syncing:
-dropbox: ~/Dropbox/Alfred
+dropbox: ~/Dropbox
