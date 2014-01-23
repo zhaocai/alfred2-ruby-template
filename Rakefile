@@ -11,7 +11,7 @@ workflow_home=File.expand_path("~/Library/Application Support/Alfred 2/Alfred.al
 $config = YAML.load_file(config_file)
 $config["bundleid"] = "#{$config["domain"]}.#{$config["id"]}"
 $config["plist"] = File.join($config["path"], "info.plist")
-$config["workflow_dbx"] = File.join(File.expand_path($config["dropbox"]), "/Alfred.alfredpreferences/workflows")
+$config["workflow_dbx"] = File.join(File.expand_path($config["dropbox"]), "/Alfred.alfredpreferences/workflows") if $config["workflow_dbx"]
 
 # import sub-rakefiles
 FileList['*/Rakefile'].each { |file|
